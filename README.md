@@ -14,6 +14,9 @@
 `from env import OSO_APP_VK_TOKEN as token`
 
 5. Запускайте файл с ботом
+---
+
+## ТЗ по разработке
 
 ---
 ## Задания
