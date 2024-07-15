@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 
+from db.engine import SessionLocal
 from db.models import User
 
 
@@ -15,3 +16,5 @@ class BaseDBInteractor:
 
     def get_user(self, user_id):
         return self.db.query(User).filter(User.id == user_id).first()
+
+db_interactor = BaseDBInteractor(db=SessionLocal())
