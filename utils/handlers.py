@@ -51,10 +51,42 @@ class ModeChangeHandler(CommandHandler):
         return {'mode': 'REGISTER_USER', 'result': None}
 
     def register_event(self):
-        return {'mode': 'REGISTER_EVENT', 'input': 'name', 'result': None}
+        if 'name' not in user_input:
+            user_input['name'] = message
+            return {'mode': 'REGISTER_EVENT', 'input': 'description', 'prompt': 'Введите название мероприятия:'}
+
+        if 'name' in user_input:
+            name = user_input['name']
+
+            event = add_event(db, name)
+
+            user_input.clear()
+
+            return {'mode': 'DEFAULT', 'result': 'Событие "{event.name}" успешно зарегистрировано!'}
+
+        return {'mode': 'REGISTER_EVENT', 'input': 'name', 'prompt': 'Введите название мероприятия:'}
+
 
     def finish(self):
         return {'mode': 'DEFAULT', 'result': True}
 
     def exit(self):
         return {'mode': 'DEFAULT', 'result': True}
+
+class EventHandler(CommandHandler):
+
+    def __init__(self):
+        self.commands = {
+            '/Создать': self.add_event,
+            '/Зарегистрироваться': self.apply,
+            '/О событии':self.get_event_info
+        }
+
+    def add_event(self, event_data:dict, user_data:dict):
+        pass
+
+    def apply(self, event_id:int, user_data:dict):
+        pass
+
+    def get_event_info(self, event_id:int):
+        pass
